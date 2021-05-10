@@ -1,0 +1,7 @@
+apiVersion: cache.mercury200hg.com/v1alpha1
+kind: RedisMS
+metadata:
+  name: redisms-sample
+spec:
+  # Add fields here
+  foo: bar

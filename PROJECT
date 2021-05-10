@@ -1,0 +1,19 @@
+domain: mercury200hg.com
+layout:
+- go.kubebuilder.io/v3
+plugins:
+  manifests.sdk.operatorframework.io/v2: {}
+  scorecard.sdk.operatorframework.io/v2: {}
+projectName: redis-ms-operator
+repo: github.com/mercury200Hg/redis-ms-operator
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: mercury200hg.com
+  group: cache
+  kind: RedisMS
+  path: github.com/mercury200Hg/redis-ms-operator/api/v1alpha1
+  version: v1alpha1
+version: "3"
