@@ -18,11 +18,14 @@ package controllers
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/go-logr/logr"
+	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+	"sigs.k8s.io/controller-runtime/pkg/controller"
 
 	cachev1alpha1 "github.com/mercury200Hg/redis-ms-operator/api/v1alpha1"
 )
@@ -51,13 +54,29 @@ func (r *RedisMSReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 	_ = r.Log.WithValues("redisms", req.NamespacedName)
 
 	// your logic here
+	redisms := &cachev1alpha1.RedisMS{}
 
-	return ctrl.Result{}, nil
+	replicas := redisms.Spec.Replicas
+	image := redisms.Spec.Replicas
+
+	fmt.Println(replicas)
+	fmt.Println(image)
+
+	err := r.Get(ctx, req.NamespacedName, redisms)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	return ctrl.Result{}, err
 }
 
 // SetupWithManager sets up the controller with the Manager.
 func (r *RedisMSReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&cachev1alpha1.RedisMS{}).
+		Owns(&appsv1.Deployment{}).
+		WithOptions(controller.Options{MaxConcurrentReconciles: 2}).
 		Complete(r)
+
 }

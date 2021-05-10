@@ -1,0 +1,60 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.4.1
+  creationTimestamp: null
+  name: redisms.cache.mercury200hg.com
+spec:
+  group: cache.mercury200hg.com
+  names:
+    kind: RedisMS
+    listKind: RedisMSList
+    plural: redisms
+    singular: redisms
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: RedisMS is the Schema for the redisms API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: RedisMSSpec defines the desired state of RedisMS
+            properties:
+              image:
+                description: Image refers to the docker image to be used
+                type: string
+              replicas:
+                description: Replicas states the number of pods of redis
+                format: int32
+                type: integer
+            type: object
+          status:
+            description: RedisMSStatus defines the observed state of RedisMS
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

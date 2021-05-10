@@ -28,8 +28,10 @@ type RedisMSSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of RedisMS. Edit redisms_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// Replicas states the number of pods of redis
+	Replicas int32 `json:"replicas,omitempty"`
+	// Image refers to the docker image to be used
+	Image string `json:"image,omitempty"`
 }
 
 // RedisMSStatus defines the observed state of RedisMS
